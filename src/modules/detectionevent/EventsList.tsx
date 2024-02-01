@@ -14,7 +14,6 @@ export const EventsList: React.FC<IResourceComponentsProps> = () => {
   const { tableProps } = useTable({
     syncWithLocation: true,
   });
-
   return (
     <List>
       <Table {...tableProps} rowKey="id">
@@ -30,8 +29,10 @@ export const EventsList: React.FC<IResourceComponentsProps> = () => {
         <Table.Column
           dataIndex="picture"
           title="Picture"
-          render={(value: any) => (
-            <MarkdownField value={value.slice(0, 80) + "..."} />
+          render={(value: string) => (
+            <div className="w-fit rounded-lg bg-stone-100">
+              <img className="h-8 aspect-square mix-blend-multiply" src={value} />
+            </div>
           )}
         />
         <Table.Column dataIndex="confidence" title="Confidence" />
