@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react";
 import { IResourceComponentsProps, BaseRecord } from "@refinedev/core";
 import {
   useTable,
@@ -6,9 +7,9 @@ import {
   EditButton,
   ShowButton,
   DateField,
-  MarkdownField,
 } from "@refinedev/antd";
 import { Table, Space } from "antd";
+import { ImageDialog } from "./components/ImageDialog";
 
 const severityStyle: { [key: string]: string } = {
   alta: "bg-red-200 text-red-600",
@@ -20,34 +21,46 @@ export const EventsList: React.FC<IResourceComponentsProps> = () => {
   const { tableProps } = useTable({
     syncWithLocation: true,
   });
+
+  const [imageDialog, setImageDialog] = useState<any>();
+
+  function openDialog(image: any) {
+    setImageDialog(image);
+  }
+
+  function closeDialog() {
+    setImageDialog(undefined);
+  }
   return (
     <List>
+      <ImageDialog record={imageDialog} closeModal={closeDialog} />
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="id" title="Id" />
+        <Table.Column dataIndex="id" title="ID" />
         <Table.Column
           dataIndex={["created_at"]}
-          title="Created At"
+          title="Registro"
           render={(value: any) => <DateField value={value} />}
         />
-        <Table.Column dataIndex="name" title="Name" />
-        <Table.Column dataIndex="source" title="Source" />
-        <Table.Column dataIndex="location" title="Location" />
+        <Table.Column dataIndex="name" title="Identificación" />
+        <Table.Column dataIndex="source" title="Origen" />
+        <Table.Column dataIndex="location" title="Ubicación" />
         <Table.Column
           dataIndex="picture"
-          title="Picture"
-          render={(value: string) => (
+          title="Fotografía"
+          render={(value: string, record) => (
             <div className="w-fit rounded-lg bg-stone-100">
               <img
-                className="h-8 aspect-square mix-blend-multiply"
+                onClick={() => openDialog(record)}
+                className="cursor-pointer object-cover h-8 aspect-square mix-blend-multiply"
                 src={value}
               />
             </div>
           )}
         />
-        <Table.Column dataIndex="confidence" title="Confidence" />
+        <Table.Column dataIndex="confidence" title="Confianza" />
         <Table.Column
           dataIndex="severity"
-          title="Severity"
+          title="Riesgo"
           render={(val: string) => (
             <div
               className={`px-2 py-0.5 font-medium rounded-md uppercase w-fit text-center ${severityStyle[val]}`}
@@ -57,7 +70,7 @@ export const EventsList: React.FC<IResourceComponentsProps> = () => {
           )}
         />
         <Table.Column
-          title="Actions"
+          title="Acciones"
           dataIndex="actions"
           render={(_, record: BaseRecord) => (
             <Space>
