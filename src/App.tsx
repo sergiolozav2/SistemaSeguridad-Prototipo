@@ -19,6 +19,7 @@ import { supabaseClient } from "./utility";
 import { AntdInferencer } from "@refinedev/inferencer/antd";
 import { EventsList } from "./modules/detectionevent/EventsList";
 import { AppLayout } from "./components";
+import { CameraStream } from "./modules/camera_stream/CameraStream";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                 notificationProvider={useNotificationProvider}
                 options={{
                   syncWithLocation: true,
+                  liveMode: "auto",
                   warnWhenUnsavedChanges: true,
                   useNewQueryKeys: true,
                   projectId: "pjFNpe-cJwyUR-RRHkV6",
@@ -47,6 +49,7 @@ function App() {
                     edit: "/events/edit/:id",
                     create: "/events/create",
                   },
+                  { name: "Camara", list: "/camera" },
                 ]}
               >
                 <Routes>
@@ -67,6 +70,7 @@ function App() {
                       <Route path="edit/:id" element={<AntdInferencer />} />
                       <Route path="create" element={<AntdInferencer />} />
                     </Route>
+                    <Route path="camera" element={<CameraStream />} />
                   </Route>
                 </Routes>
                 <RefineKbar />

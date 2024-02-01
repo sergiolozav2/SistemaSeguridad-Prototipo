@@ -1,4 +1,4 @@
-import { VideoCameraOutlined } from "@ant-design/icons";
+import { VideoCameraOutlined, WarningOutlined } from "@ant-design/icons";
 import { useMenu } from "@refinedev/core";
 import { Menu, theme } from "antd";
 
@@ -6,6 +6,9 @@ const mapRouteToMenu: {
   [key: string]: { icon: React.ReactNode };
 } = {
   Alarmas: {
+    icon: <WarningOutlined />,
+  },
+  Camaras: {
     icon: <VideoCameraOutlined />,
   },
 };
