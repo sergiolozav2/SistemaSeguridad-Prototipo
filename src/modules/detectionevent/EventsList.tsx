@@ -10,6 +10,12 @@ import {
 } from "@refinedev/antd";
 import { Table, Space } from "antd";
 
+const severityStyle: { [key: string]: string } = {
+  alta: "bg-red-200 text-red-600",
+  media: "bg-amber-600 text-stone-100",
+  baja: "bg-green-200 text-green-700",
+};
+
 export const EventsList: React.FC<IResourceComponentsProps> = () => {
   const { tableProps } = useTable({
     syncWithLocation: true,
@@ -31,12 +37,25 @@ export const EventsList: React.FC<IResourceComponentsProps> = () => {
           title="Picture"
           render={(value: string) => (
             <div className="w-fit rounded-lg bg-stone-100">
-              <img className="h-8 aspect-square mix-blend-multiply" src={value} />
+              <img
+                className="h-8 aspect-square mix-blend-multiply"
+                src={value}
+              />
             </div>
           )}
         />
         <Table.Column dataIndex="confidence" title="Confidence" />
-        <Table.Column dataIndex="severity" title="Severity" />
+        <Table.Column
+          dataIndex="severity"
+          title="Severity"
+          render={(val: string) => (
+            <div
+              className={`px-2 py-0.5 font-medium rounded-md uppercase w-fit text-center ${severityStyle[val]}`}
+            >
+              {val}
+            </div>
+          )}
+        />
         <Table.Column
           title="Actions"
           dataIndex="actions"
