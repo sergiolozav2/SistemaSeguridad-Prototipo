@@ -44,3 +44,6 @@ def start_server():
     application.listen(6500)
     print("[+] Servidor iniciado")
     tornado.ioloop.IOLoop.instance().start()
+
+if(__name__ == '__main__'):
+    start_server()
