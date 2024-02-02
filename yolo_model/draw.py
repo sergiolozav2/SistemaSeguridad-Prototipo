@@ -1,5 +1,5 @@
 import cv2
-from class_names import labels
+from services import class_names
 
 def prediction_box(image, box):
     x1, y1, x2, y2 = box.xyxy[0]
@@ -16,6 +16,6 @@ def prediction_label(image, box, label_id):
     fontScale = 1
     color = (255, 0, 0)
     thickness = 2
-    label = labels[label_id]
+    label = class_names.labels[label_id]
 
     cv2.putText(image, label, position, font, fontScale, color, thickness)
