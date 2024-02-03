@@ -20,6 +20,7 @@ import { AntdInferencer } from "@refinedev/inferencer/antd";
 import { EventsList } from "./modules/detectionevent/EventsList";
 import { AppLayout } from "./components";
 import { CameraStream } from "./modules/camera_stream/CameraStream";
+import { CameraOutlined, WarningOutlined } from "@ant-design/icons";
 
 function App() {
   return (
@@ -48,14 +49,25 @@ function App() {
                     show: "/events/show/:id",
                     edit: "/events/edit/:id",
                     create: "/events/create",
+                    meta: {
+                      canDelete: true,
+                      icon: <WarningOutlined />,
+                    },
                   },
-                  { name: "Camara", list: "/camera" },
+                  {
+                    name: "Camara",
+                    list: "/camera",
+                    meta: {
+                      icon: <CameraOutlined />,
+                    },
+                  },
                 ]}
               >
                 <Routes>
                   <Route
                     index
-                    element={<NavigateToResource resource="events" />}
+                    path="/"
+                    element={<NavigateToResource resource="Alarma"  />}
                   />
                   <Route
                     element={
