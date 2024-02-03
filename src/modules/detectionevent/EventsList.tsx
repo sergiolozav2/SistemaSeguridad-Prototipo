@@ -35,13 +35,19 @@ export const EventsList: React.FC<IResourceComponentsProps> = () => {
     <List>
       <ImageDialog record={imageDialog} closeModal={closeDialog} />
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="id" title="ID" />
         <Table.Column
+          dataIndex="id"
+          title="ID"
+          sorter
+          sortDirections={["descend"]}
+        />
+        <Table.Column
+          className="whitespace-nowrap"
           dataIndex={["created_at"]}
           title="Registro"
           render={(value: any) => <DateField value={value} />}
         />
-        <Table.Column dataIndex="name" title="Identificación" />
+        <Table.Column className="capitalize" dataIndex="name" title="Identificación" />
         <Table.Column dataIndex="source" title="Origen" />
         <Table.Column dataIndex="location" title="Ubicación" />
         <Table.Column
